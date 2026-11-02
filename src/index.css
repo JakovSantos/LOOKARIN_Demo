@@ -430,3 +430,16 @@ button{touch-action:manipulation}
 .device.bare .intro .intro-flags{top:var(--st)}.device.bare .intro-skip{bottom:calc(var(--sb) + 14px)}
 .device.bare .pass-screen .handoff-action{bottom:calc(var(--sb) + 22px)}
 .device.bare .session-swipe .card-stack{height:clamp(300px,calc(var(--app-h) - var(--st) - var(--sb) - 331px),560px)}
+
+/* Claimed tab: the code lives here, on white so it scans in both themes */
+.ticket:not(:has(>span)){grid-template-columns:1fr}.ticket:not(:has(>span))>div{border-right:0}
+.claimed-list{display:grid;gap:12px}
+.claimed-card{padding:14px;border-radius:22px;background:var(--surface)}
+.claimed-card>button{display:block;width:100%;text-align:left}
+.claimed-card small{display:block;font-size:13px;font-weight:700;color:var(--orange-ink)}
+.claimed-card>button strong{display:block;font-size:17px;margin:3px 0}
+.claimed-card>button p{font-size:14px;color:var(--muted)}
+.code-panel{margin-top:12px;padding:14px 18px;border-radius:14px;background:#fff;color:#21160f;box-shadow:inset 0 0 0 1px rgba(33,22,15,.12);text-align:center}
+.code-panel .barcode{margin:0 auto 8px}
+.code-panel strong{display:block;font-size:20px;letter-spacing:1px;color:#21160f}
+.claimed-note{margin-top:9px;font-size:13px;color:var(--muted);text-align:center}
