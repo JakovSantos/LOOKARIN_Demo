@@ -309,6 +309,10 @@ function Prototype(){
     media.addEventListener('change',apply)
     return()=>media.removeEventListener('change',apply)
   },[theme])
+  useLayoutEffect(()=>{
+    const bar=['splash','pass','remote'].includes(screen)?'#ff5a1f':getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',bar)
+  },[screen,theme])
   useEffect(()=>{
     const avatar=avatarOptions.find(a=>a.src===profileAvatar)?.name
     try{localStorage.setItem(prefsKey,JSON.stringify({profile,theme,alerts,avatar}))}catch{/* preferences just won't persist */}
@@ -771,19 +775,19 @@ function LobbyJoiner({joined,setJoined,total,onJoin}:{joined:number;setJoined:(n
 }
 
 function DeviceFrame({children}:{children:React.ReactNode}){
-  const [fit,setFit]=useState({scale:1,bare:false})
+  const [fit,setFit]=useState({scale:1,bare:false,appHeight:874})
   useLayoutEffect(()=>{
     const resize=()=>{
       const width=window.innerWidth,height=window.innerHeight,bare=width<=480
-      const scale=bare?Math.min(width/402,height/874):Math.min(1,(width-24)/438,(height-24)/898)
+      const scale=bare?width/402:Math.min(1,(width-24)/438,(height-24)/898)
       deviceScale=scale
-      setFit({scale,bare})
+      setFit({scale,bare,appHeight:height/scale})
     }
     resize()
     window.addEventListener('resize',resize)
     return()=>window.removeEventListener('resize',resize)
   },[])
-  return <div className="device-stage"><div className={`device ${fit.bare?'bare':''}`} style={{transform:`scale(${fit.scale})`}}>
+  return <div className="device-stage"><div className={`device ${fit.bare?'bare':''}`} style={{transform:`scale(${fit.scale})`,...(fit.bare?{height:fit.appHeight,'--device-scale':fit.scale,'--app-h':`${fit.appHeight}px`}:{})} as React.CSSProperties}>
     <div className="device-screen">
       {children}
       {!fit.bare&&<><div className="status-bar" aria-hidden><span>9:41</span><span className="status-icons"><svg viewBox="0 0 18 12" width="18" height="12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 17 12" width="17" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M1.5 4.2a10 10 0 0 1 14 0M4.2 7a6.2 6.2 0 0 1 8.6 0"/><circle cx="8.5" cy="10" r="1" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 27 13" width="27" height="13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5c1 .3 1.5 1 1.5 2s-.5 1.7-1.5 2z" fill="currentColor" opacity=".5"/></svg></span></div><div className="dynamic-island" aria-hidden/><div className="home-indicator" aria-hidden/></>}

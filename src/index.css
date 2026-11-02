@@ -415,3 +415,18 @@ html,body,#root{background:#1c1410}
 .profile-name{display:flex;align-items:center;gap:2px;min-width:0}.profile-name h1{min-width:0}
 .name-edit{flex:none;width:44px;height:44px;margin:-6px 0;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--orange-ink)}
 .gear-button svg{width:23px;height:23px}
+
+/* Phone view: fill the real screen, no fake device */
+html,body{overscroll-behavior:none}
+body{-webkit-text-size-adjust:100%;-webkit-touch-callout:none}
+button{touch-action:manipulation}
+@media(max-width:480px){.device-stage{background:var(--cream)}html,body,#root{background:var(--cream)}}
+.device.bare{--st:max(calc(env(safe-area-inset-top,0px)/var(--device-scale)),14px);--sb:max(calc(env(safe-area-inset-bottom,0px)/var(--device-scale)),10px);position:absolute;left:0;top:0;transform-origin:0 0;background:var(--cream)}
+.device.bare .device-screen{height:100%}
+.device.bare .phone{height:100%!important;min-height:0!important;padding:var(--st) 0 var(--sb)!important}
+.device.bare .details-screen{padding-top:0!important}.device.bare .details-screen .nav{top:calc(var(--st) + 4px)}
+.device.bare .tabbar{bottom:calc(var(--sb) + 4px)}.device.bare .bottom-action{bottom:var(--sb)}
+.device.bare .handoff-back{top:calc(var(--st) + 6px)}.device.bare .toast{top:calc(var(--st) + 6px)}.device.bare .push-banner{top:calc(var(--st) + 4px)}
+.device.bare .intro .intro-flags{top:var(--st)}.device.bare .intro-skip{bottom:calc(var(--sb) + 14px)}
+.device.bare .pass-screen .handoff-action{bottom:calc(var(--sb) + 22px)}
+.device.bare .session-swipe .card-stack{height:clamp(300px,calc(var(--app-h) - var(--st) - var(--sb) - 331px),560px)}
