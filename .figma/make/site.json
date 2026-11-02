@@ -1,0 +1,10 @@
+{
+  "description": "Helps Pampanga barkadas quickly choose where to eat by matching group cravings, budgets, and dietary needs with local restaurant picks and deals.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
